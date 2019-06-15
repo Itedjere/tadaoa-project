@@ -1,0 +1,314 @@
+/*--
+Author: softefix
+Author URL: http://softefix.com.ng
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+h4, h5, h6,
+h1, h2, h3 {margin-top: 0;}
+ul, ol {margin: 0;}
+p {margin: 0;}
+html, body{
+ font-family: 'PT-Sans-Italic';
+   font-size: 100%;
+   background:#fff; 
+}
+@font-face {
+    font-family: 'MarkoOne-Regular';
+    src:url(../fonts/MarkoOne-Regular.ttf) format('truetype');
+}
+@font-face {
+    font-family:  'PT-Sans-Italic';
+    src:url(../fonts/PT-Sans-Italic.ttf) format('truetype');
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+}
+
+.header, .subheader{
+	background: url(../images/ft-worth-bridge-1317468_1920.jpg)no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height:800px;
+  position:relative;
+  display: flex;
+  align-items: center;
+}
+.subheader {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+}
+.navbar-brand {
+  padding: 0;
+}
+.navbar {
+  margin-bottom: 0px;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  padding: 10px 95px 20px;
+  height: auto;
+  overflow: hidden;
+  z-index: 30;
+}
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+.transparent-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.header-top {
+  padding: 2em 0em;
+}
+.header .banner{
+	text-align:center;
+  position: relative;
+  z-index: 3;
+}
+.banner {
+  text-align:center;
+  position: relative;
+  z-index: 3;
+}
+.banner h1{
+	color: #fff;
+	font-size:3em;
+	font-family: 'MarkoOne-Regular';
+}
+.banner p {
+  color: #fff;
+  font-size: 1.1em;
+  line-height: 1.8em;
+  width: 50%;
+  margin: 0 auto;
+  font-style: italic;
+}
+.header span.mover {
+  background: url(../images/mover.png)no-repeat 0px 0px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  position: absolute;
+  bottom: -5%;
+  left: 48%;
+  z-index: 1;
+}
+/* Styles for dialog window */
+#small-dialog{
+  padding:20px;
+  text-align: left;
+  max-width: 650px;
+  margin: 0 auto;
+  position: relative;
+  text-align:center;
+  z-index: 3;
+}
+.login {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  display: flex;
+}
+.login input[type="text"] {
+  display: block;
+  background-color: transparent;
+  border: 2px solid #fff;
+  height: 50px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 18px;
+  padding: 0 10px;
+  width: calc(100% - 200px);
+}
+.login input[type="submit"] { 
+  color: #fff;
+  border: 0;
+  background-color: #ef3650;
+  width: 200px;
+  border: 3px;
+  font-size: 1.5em;
+  transition: all 0.3s ease-in-out;
+}
+
+.login input[type="submit"]:hover {
+  background-color: #f60829;
+}
+
+.formcontainer {
+  padding: 5em 0;
+}
+
+.navbar-nav > .active > a {
+    background-color: #00305b;
+    color: #fff;
+}
+
+.navbar-toggle {
+    border-color: #00305b;;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #00305b;;
+}
+
+.confirm-dtails td {
+  text-align: center;
+}
+
+@media screen and (max-width: 479px) {
+
+.login {
+  flex-direction: column;
+}
+.login input[type="text"] {
+  margin-bottom: 5px;
+  width: 100%;
+}
+.login input[type="submit"] { 
+  width: 100%;
+  height: 50px;
+}
+
+}
+
+
+/*--header end here--*/
+.copy-rights {
+  padding: 1.4em 0em;
+  text-align: center;
+  background: #00305b;
+}
+
+.copy-rights p {
+  font-size: 1em;
+  font-weight: 400;
+  color: #fff;
+  text-transform: uppercase;
+}
+.copy-rights p a{
+	color:#fff;
+}
+.copy-rights p a:hover{
+  text-decoration:none;
+  color:#fff;
+}
+
+
+
+/*--responsive design--*/
+@media(max-width:1440px){
+	
+}
+@media(max-width:1366px){
+	
+}
+@media(max-width:1280px){
+.header {
+  min-height: 630px;	
+}
+}
+@media(max-width:1024px){
+.header {
+  min-height: 500px;	
+}
+.banner {
+  padding: 7em 0 5em;
+}
+}
+@media(max-width:768px){
+.banner p {
+  font-size: 1em;
+  width: 80%;
+}
+/*.header {
+  min-height: 400px;
+}
+.banner {
+  padding: 4em 0 0em;
+}*/
+.banner h1 {
+  font-size: 2.5em;
+}
+}
+@media(max-width:640px){
+.banner h1 {
+  font-size: 2.2em;
+}	
+.banner p {
+  font-size: 1em;
+  width: 95%;
+}
+/*.header {
+  min-height: 350px;
+}
+.banner {
+  padding: 3em 0 0em;
+}*/
+.wrapper {
+  width: 100%;
+}
+
+}
+@media(max-width:480px){
+.banner h1 {
+  font-size: 1.6em;
+}
+/*.banner {
+  padding: 1.5em 0 0em;
+}
+.header {
+  min-height: 305px;
+}*/
+.banner p {
+  font-size: 0.95em;
+  width: 100%;
+}
+}
+@media(max-width:320px){
+.header-top {
+  padding: 1em 0em;
+}
+.banner h1 {
+  font-size: 1.3em;
+  margin: 0em 0em 0.1em 0em;
+}
+.banner p {
+  font-size: 0.8em;	
+}
+/*.banner {
+  padding: 0.7em 0 0em;
+}
+.header {
+  min-height: 200px;
+}*/
+.copy-rights p {
+  font-size: 0.9em;
+}
+#small-dialog{
+  padding:15px;
+}
+}

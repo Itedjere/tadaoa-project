@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Tadaoa | Document Signing</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+</head>
+<body>
+<!--header start here-->
+<div class="header">
+	<div class="transparent-bg"></div>
+	<div class="container">
+		<div class="logo">
+			<img src="images/OHG-Logo.svg" alt="ohgtax Logo" width="293">
+		</div>
+		<div class="header-top">
+
+			<div class="banner">
+				<h1>Sign Your Property Tax Document</h1>
+			</div>
+
+			<div id="small-dialog">
+				<div class="search-top">
+					<div class="login">
+						<input type="text" placeholder="Type Account Number" id="account_number">
+						<input type="submit" value="Search Property" id="fetchAccountDetails">		
+					</div>
+				</div>				
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--copyrights start here-->
+<div class="copy-rights">
+	<div class="container">
+		<div class="copy-right-main">
+			 <p>Copyright © <span id="date"></span> <a href="http://tadaoa.com" target="_blank">  O’DAY HARRISON GRANT </a>. All rights reserved.</p>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Account Details</h4>
+      </div>
+      <div class="modal-body" id="modal_content">
+      	<p>Confirm Your Account Details</p>
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<th>Owner Name</th>
+					<td>John Doe</td>
+				</tr>
+				<tr>
+					<th>Owner Address</th>
+					<td>John Doe</td>
+				</tr>
+				<tr>
+					<th>Owner City / State / Zip</th>
+					<td>John Doe</td>
+				</tr>
+				<tr>
+					<th>Account Number</th>
+					<td>John Doe</td>
+				</tr>
+				<tr>
+					<th>Legal Description</th>
+					<td>John Doe</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer" id="modal_footer">
+      	<span></span>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.min.js"></script>
+
+<!--copyright end here-->
+<script type="text/javascript"> 
+let dateObj = new Date();
+document.getElementById('date').innerHTML = dateObj.getFullYear();
+</script>
+</body>
+</html>		
