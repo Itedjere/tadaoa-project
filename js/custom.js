@@ -20,13 +20,7 @@ $(document).ready(function(){
     		$("#myModal").modal();
     		
 	    	const modalFooter = $('div#modal_footer');
-	    	const signNowTemplateLink = 'https://signnow.com/s/aBPMHxZV?';
-	    	const county_name = 'TARRANT COUNTY APPRAISAL DISTRICT';
-	    	const siteName = window.location.hostname;
-	    	const dateObj = new Date();
-	    	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-			const todayDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
-
+	    	
     		console.log(accountNumber);
     		$.ajax({
 	            url: "autosearch_property.php",
@@ -34,8 +28,9 @@ $(document).ready(function(){
 	            data: {'account_number' : accountNumber},
 	            success:function(data){
 	                let result = JSON.parse(data);
+	            	console.log(result);
+	            	
 	                if (result.response_code == 200) {
-						console.log(result);
 						const props = result.result;
 						let modalContent = `<p>Confirm Your Account Details</p>
 											<table class="table table-striped">
@@ -70,8 +65,8 @@ $(document).ready(function(){
 						modalContainer.html(modalContent);
 						//populate the footer link
 
-						const footerLinkHref = encodeURI(`${signNowTemplateLink}county=${county_name}&owner_name=${props.owner_name}&owner_city=${props.owner_city}, ${props.owner_zip}&owner_address=${props.owner_address}&situs_address=${props.address}&legal_description=${props.legal_description}&account_num=${props.taxnet_id}&today_date=${todayDate}&redirect_uri=http://${siteName}`);
-						const footerLink = `<a href="${footerLinkHref}" class="btn btn-primary">Sign Document</a>`;
+						//const footerLinkHref = encodeURI(`${signNowTemplateLink}county=${county_name}&owner_name=${props.owner_name}&owner_city=${props.owner_city}, ${props.owner_zip}&owner_address=${props.owner_address}&situs_address=${props.address}&legal_description=${props.legal_description}&account_num=${props.taxnet_id}&today_date=${todayDate}&redirect_uri=http://${siteName}`);
+						const footerLink = `<a href="${result.signnow_link}" class="btn btn-primary">Sign Document</a>`;
 						modalFooter.find('span').html(footerLink);
 
 					} else {

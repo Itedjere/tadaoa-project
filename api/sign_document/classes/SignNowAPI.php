@@ -2,26 +2,25 @@
 class SignNow {
 
 	/* TRIAL API account */
-	// public $apiBaseURL = "https://api-eval.cudasign.com/";    // API TRIAL
-	// public static $webBaseURL = "https://eval.signnow.com/";  // API TRIAL
-	// public static $both_template_id = "2a6bc494e4ae48e36d072bece07985e2e1521b56"; // Combo forms // API TRIAL
+	public $apiBaseURL = "https://api-eval.signnow.com/";    // API TRIAL
+	public static $webBaseURL = "https://eval.signnow.com/";  // API TRIAL
 
 	/* PRODUCTION API account */
-	public $apiBaseURL = "https://api.signnow.com/";
-	public static $webBaseURL = "https://signnow.com/";
-	public static $both_template_id = "100c50d5b8a44c3a4036316fe8acdc8b8741583d"; // Combo forms
-	public static $template_year = array(
-		"2017" => "100c50d5b8a44c3a4036316fe8acdc8b8741583d",
-		"2018" => "b81f91ab5a5ed529d4f0062c9757a0ae3ba5c73d",
-	);
-	public static $template_id = "d650c8b424561e408b2c58c1252f5376c35f9388";
+	// public $apiBaseURL = "https://api.signnow.com/";
+	// public static $webBaseURL = "https://signnow.com/";
+
+
+	public static $template_id = "118f6b60576805ebc1b499d076bbc56a0f6b30ca";
 
 
 	public $fromEmail = "";
 	public $toEmail = "";
+	public $password = "";
 	public $clientID;
 	public $encodedCredentials;
 	public $clientToken;
+
+
 	public function __construct() {
 
 		/* TRIAL API account */
@@ -30,20 +29,22 @@ class SignNow {
 		// $this->encodedCredentials = 'MGZjY2RiYzczNTgxY2EwZjliZjhjMzc5ZTZhOTY4MTM6MzcxOWExMjRiY2ZjMDNjNTM0ZDRmNWMwNWI1YTE5NmI='; // API TRIAL
 		// $this->toEmail = 'luke@weesedesigns.com'; // API TRIAL
 
-		/* PRODUCTION API account */
-		$this->clientID = '957e543d74e4c7c445138c9d1e655e56';// Your client id goes here.
-		$client_secret="ffb238c9e8c8be34437350ae5267168c"; 
-		$this->encodedCredentials = base64_encode($this->clientID.":".$client_secret);  // OTU3ZTU0M2Q3NGU0YzdjNDQ1MTM4YzlkMWU2NTVlNTY6ZmZiMjM4YzllOGM4YmUzNDQzNzM1MGFlNTI2NzE2OGM=
-// if (!isset($_SESSION)) session_start();
-// $_SESSION["sn_cred"] = $this->encodedCredentials;
+		/* TRIAL API account */
+		$this->clientID = '0fccdbc73581ca0f9bf8c379e6a96813';
+		$client_secret = '3719a124bcfc03c534d4f5c05b5a196b';
+		$this->encodedCredentials = 'MGZjY2RiYzczNTgxY2EwZjliZjhjMzc5ZTZhOTY4MTM6MzcxOWExMjRiY2ZjMDNjNTM0ZDRmNWMwNWI1YTE5NmI=';
+
+		// PRODUCTION API ACCOUNT
+		// $this->clientID = '957e543d74e4c7c445138c9d1e655e56';// Your client id goes here.
+		// $client_secret="ffb238c9e8c8be34437350ae5267168c"; 
+		// $this->encodedCredentials = base64_encode($this->clientID.":".$client_secret);
 
 
-		$this->toEmail = 'signer@propertytaxlock.com'; // Your To email and Signer Token email goes here.
-		// $this->toEmail = 'support@propertytaxlock.com'; // Your To email and Signer Token email goes here.
+		$this->toEmail = 'websurer@gmail.com'; // Your To email and Signer Token email goes here.
 
+		$this->fromEmail = 'support@tadaoa.com'; // Your From and main account email goes here.
 
-		$this->fromEmail = 'support@propertytaxlock.com'; // Your From and main account email goes here.
-		// $this->fromEmail = 'luke@taxnetusa.com'; // Your From and main account email goes here.
+		$this->password = '77732YounggP';
 
 		// On class invocation grab a new client token.
 		$this->clientToken = $this->getOAuthToken();
@@ -57,41 +58,76 @@ class SignNow {
 		if (isset($lastName)  && !empty($lastName))  { $tempArray["last_name"]  = $lastName; }
 		return self::makeCurlRequest ($url, $header, $parameters);
 	}
-	// For getting an OAuthToken for main user.
-	public function getOAuthToken () {
-		$url = $this->apiBaseURL . "oauth2/token";
 
-		if (!isset($_SESSION)) session_start();
-		if (!empty($_SESSION["sn_access_token"])) {
-
-			/* Check that the stored access key is still valid */
-			$header = array('Accept:application/json','Authorization: Bearer ' . $_SESSION["sn_access_token"]);
-			$response = self::makeCurlRequest ($url, $header, "", false);
-			if (!empty($response)) {
-				$json_response = json_decode($response);
-				if (isset($json_response->access_token)) {
-					$_SESSION["sn_access_token"] = $json_response->access_token;
-					return $_SESSION["sn_access_token"];
-				}
-			}
-		}
+	public function getUserAccessToken() {
+		$url = "https://api-eval.signnow.com/oauth2/token";
 
 		/* Get a new access key */
 		$header = array('Accept:application/json','Authorization: Basic ' . $this->encodedCredentials); 
 
-		$username = $this->fromEmail; 
-		$password = "sign128"; 
-		$grant_type = "password"; 
-		$scope = "*"; 
-		$parameters = array('username'=> $username,'password' => $password, 'grant_type'=> $grant_type,'scope'=> $scope); 
+		$username = $this->fromEmail;
+		$grant_type = "password";
+		$password = $this->password;
+
+		$parameters = array('username'=> $username,'password' => $password, 'grant_type'=> $grant_type);
+
+
 
 		$response = self::makeCurlRequest ($url, $header, $parameters);
 		$json_response = json_decode($response);
+
+		// echo "<pre>";
+		// print_r($json_response);
+		// echo "</pre>";
 
 		if (!isset($_SESSION)) session_start();
 		$_SESSION["sn_access_token"] = $json_response->access_token;
 
 		return $_SESSION["sn_access_token"];
+		//return $json_response;
+	}
+
+	// For getting an OAuthToken for main user.
+	public function getOAuthToken() {
+		$url = $this->apiBaseURL . "oauth2/token";
+
+		// if (!isset($_SESSION)) session_start();
+		// if (!empty($_SESSION["sn_access_token"])) {
+
+			
+		// 	$header = array('Accept:application/json','Authorization: Bearer ' . $_SESSION["sn_access_token"]);
+		// 	$response = self::makeCurlRequest ($url, $header, "", false);
+		// 	if (!empty($response)) {
+		// 		$json_response = json_decode($response);
+		// 		if (isset($json_response->access_token)) {
+		// 			$_SESSION["sn_access_token"] = $json_response->access_token;
+		// 			return $_SESSION["sn_access_token"];
+		// 		}
+		// 	}
+		// }
+
+		/* Get a new access key */
+		$header = array('Accept:application/json','Authorization: Basic ' . $this->encodedCredentials); 
+
+		$username = $this->fromEmail;
+		$grant_type = "password";
+		$password = $this->password;
+		$scope = "*";
+
+		$parameters = array('username'=> $username,'password' => $password, 'grant_type'=> $grant_type,'scope'=> $scope);
+
+		$response = self::makeCurlRequest ($url, $header, $parameters);
+		$json_response = json_decode($response);
+
+		// echo "<pre>";
+		// print_r($json_response);
+		// echo "</pre>";
+
+		if (!isset($_SESSION)) session_start();
+		$_SESSION["sn_access_token"] = $json_response->access_token;
+
+		return $_SESSION["sn_access_token"];
+		//return $json_response;
 	}
 
 	public function tokenForSigningLink ($document) {
@@ -99,7 +135,7 @@ class SignNow {
 		$header = array('Accept:application/json','Authorization: Basic ' . $this->encodedCredentials); 
 
 		$username = $this->toEmail; 
-		$password = "sign128"; 
+		$password = $this->password; 
 		$grant_type = "password"; 
 		// $scope = "*"; 
 		$scope = "signer_limited_scope_token document/".$document; 
@@ -115,13 +151,17 @@ class SignNow {
 		$header = array('Accept:application/json','Authorization: Basic ' . $this->encodedCredentials); 
 
 		$username = $this->toEmail; 
-		$password = "sign128"; 
-		$grant_type = "password"; 
+		$password = $this->password;
+		$grant_type = "password";
 		$parameters = array('username'=> $username,'password' => $password, 'grant_type'=> $grant_type); 
 		$response = self::makeCurlRequest ($url, $header, $parameters, true);
 
 		$json_response = json_decode($response);
-		return $json_response->access_token;
+
+		if (!isset($_SESSION)) session_start();
+		$_SESSION["signer_access_token"] = $json_response->access_token;
+
+		return $_SESSION["signer_access_token"];
 	}
 
 	// For getting a document.
@@ -132,12 +172,12 @@ class SignNow {
 	}
 	// For getting a document from copying a template
 	public function getDocumentFromTemplate ($template, $docName = "") {
-		$url        = $this->apiBaseURL . "template/".$template."/copy";
+		$url = $this->apiBaseURL . "template/".$template."/copy";
 		$parameters = "";
 		if (!empty($docName)) {
 			$parameters = json_encode(array("document_name"=>$docName));
 		}
-		$header     = array("Accept:application/json", "Authorization: Bearer ".$this->clientToken);
+		$header = array("Accept:application/json", "Authorization: Bearer ".$this->clientToken);
 		return self::makeCurlRequest ($url, $header, $parameters, true);
 	}
 	// For getting history of a document.
@@ -165,19 +205,19 @@ class SignNow {
 
 
 	// Update Signer account with user first name and turn off reusable signatures
-	public function updateSignerAccount ($signerToken, $firstName, $lastName) {
+	public function updateSignerAccount ($firstName, $lastName) {
+		$signerToken = $this->signerAccountAccessToken();
+
 		$url        = $this->apiBaseURL . "user";
 		$header     = array("Accept: application/json", "Authorization: Bearer ".$signerToken);
 		$parameters = json_encode(array("first_name"=>$firstName,"last_name"=>$lastName));
 		$response = self::makeCurlRequest ($url, $header, $parameters, false, true);
 
-		$signerAccountAccessToken = $this->signerAccountAccessToken();
+		
 		$url        = $this->apiBaseURL . "user/setting/no_user_signature_return";
 		$header     = array("Accept: application/json", "Authorization: Bearer ".$signerToken);
 		$parameters = json_encode(array("active"=>1));
 		$response = self::makeCurlRequest ($url, $header, $parameters, false, true);
-
-		return $response;
 	}
 
 
@@ -200,16 +240,16 @@ class SignNow {
 			"prefill_signature_name"=>$name
 		);
 
-		$ccs = array($email);
-		if (!empty($cc)) {
-			$ccs[] = $cc;
-		}
+		// $ccs = array($email);
+		// if (!empty($cc)) {
+		// 	$ccs[] = $cc;
+		// }
 
 		$params = array(
 			// "from"=>$this->toEmail,
 			"from"=> $this->fromEmail,
 			"to"  => $signers,
-			"cc"  => $ccs
+			"cc"  => []
 		);
 
 		$parameters = json_encode($params);
@@ -225,11 +265,11 @@ class SignNow {
 
 	// For adding fields to a document.
 	public function addFieldsToDocument($document, $fields, $texts = null) {
-/*
-curl -X PUT -H 'Authorization: Bearer ACCESS_TOKEN' --data '
-{"fields":[{"x":18,"y":18,"width":122,"height":34,"page_number":0,"role":"Buyer","required":true,"label":"a sample label","prefilled_text":"PREFILLED TEXT","type":"text"}]}
-' https://api-eval.signnow.com/document/2586a3f5fe9a79106015602a5191938bfaf698e9
- */
+		/*
+		curl -X PUT -H 'Authorization: Bearer ACCESS_TOKEN' --data '
+		{"fields":[{"x":18,"y":18,"width":122,"height":34,"page_number":0,"role":"Buyer","required":true,"label":"a sample label","prefilled_text":"PREFILLED TEXT","type":"text"}]}
+		' https://api-eval.signnow.com/document/2586a3f5fe9a79106015602a5191938bfaf698e9
+		 */
 		$url    = $this->apiBaseURL . "document/".$document;
 		$header = array("Accept: application/json", "Authorization: Bearer ".$this->clientToken);
 
@@ -241,10 +281,10 @@ curl -X PUT -H 'Authorization: Bearer ACCESS_TOKEN' --data '
 		}
 
 		$parameters = json_encode($params);
-// echo '<pre>parameters
-// ';
-// print_r($parameters);
-// echo '</pre>';
+		// echo '<pre>parameters
+		// ';
+		// print_r($parameters);
+		// echo '</pre>';
 
 		// $parameters = $params;
 		return self::makeCurlRequest ($url, $header, $parameters, false, true);
